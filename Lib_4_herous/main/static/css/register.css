@@ -1,3 +1,6 @@
+body {
+    background-image: url(../img/fon.jpg);
+}
 .register{
     background-color: #f5e536;
     display: inline-block;

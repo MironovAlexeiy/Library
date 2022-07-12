@@ -1,11 +1,13 @@
-{% extends 'main.html' %}
-{% block title %}Регистрация {% endblock %}
-{% block content %}
+<!DOCTYPE html>
+<html lang="en">
 {% load static%}
-<link rel="stylesheet" href="{% static 'css/register.css' %}">
-
-
-<h2 align="center">Форма регистрации нового пользователя</h2>
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <link rel="stylesheet" href="{% static 'css/register.css' %}">
+</head>
+<body>
+<h1 align="center">Форма регистрации нового пользователя</h1>
 <div class="register">
 <form action="" method="post">
     {% csrf_token %}
@@ -13,4 +15,5 @@
     <p><input type="submit" value="Создать аккаунт"></p>
 </form>
     </div>
-{% endblock %}
+</body>
+</html>
