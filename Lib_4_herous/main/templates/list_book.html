@@ -1,0 +1,36 @@
+{% extends 'main.html' %}
+{% block title %}Главная{% endblock %}
+
+{% block content %}
+<div class="list_book">
+<h2>Список книг:</h2>
+  <table class="table">
+
+  <thead>
+    <tr>
+
+      <th scope="col">Наименование kниги на руссkом языке</th>
+      <th scope="col">Жанр</th>
+      <th scope="col">дата публикации</th>
+      <th  scope="col">Количество экземпляров, доступное для выдачи читателям</th>
+    </tr>
+  </thead>
+  <tbody>
+        {% for b in books_list %}
+    <tr>
+
+
+        <td><a href="{% url 'main:book_detail' b.pk %}">{{ b.title_russian}}</a></td>
+
+      <td>{% for genre in b.genre.all %}<em>{{ genre }} </em>{% endfor %}</td>
+
+      <td>{{ b.year_of_publication}}</td>
+
+      <td align="center">{{ b.bookinstance_set.all.count }}</td>
+
+    </tr>
+                {% endfor %}
+    </tbody>
+</table>
+    </div>
+{% endblock %}

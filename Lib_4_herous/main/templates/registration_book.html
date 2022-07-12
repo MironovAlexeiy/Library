@@ -1,0 +1,35 @@
+{% extends 'main.html' %}
+{% block title %} Регистрация Книги {% endblock %}
+{% block content %}
+{% load static %}
+
+<link rel="stylesheet" href="{% static 'css/book_form.css' %}">
+
+
+{% if user.is_staff %}
+<form action="#" method="post" enctype="multipart/form-data" class="form">
+    <h3>Форма добавления новой книги</h3>
+    {% csrf_token %}
+    <div class="form_field">
+    <span class="form_error">{{ error }}</span>
+    <input type="text" name="title_russian" placeholder="Название на русском" required></div>
+
+    <div class="form_field"><input type="text" name="title_foreign" placeholder="Название на др. языке"  ></div>
+
+    <div class="form_field"><textarea  name="description" placeholder="Описание" required></textarea></div>
+
+    <div class="form_field"><p>Выберите Жанр(ы)</p>{% for g in genre %}<label>{{ g.name }}<input type="checkbox" name="genre"  value="{{ g.pk }}"></label>{% endfor %}
+</div>
+<!--    <span class="form_error"></span>-->
+    <div class="form_field"><input type="number" name="price" placeholder="Цена" step="0.1" min="1" required></div>
+    <div class="form_field"><input type="number" name="cost_daily" placeholder="Цена за день использования" min="1" step="0.1" required></div>
+    <div class="form_field"><input type="number" name="amount_ex" placeholder="Количество" min="1" required></div>
+    <div class="form_field"><p>Выберите Автора(ов)</p>{% for a in authors %}<label>{{ a.name }} {{ a.surname }}<input type="checkbox" name="authors"  value="{{ a.pk }}"></label>{% endfor %}
+</div>
+    <div class="form_field"><input type="number" name="number_of_pages" placeholder="Количество страниц" min="1"></div>
+    <p>Дата публикации</p><div class="form_field"><input type="date" name="year_of_publication" placeholder="Дата публикации"></div>
+    <p>Выберите изображение</p><div class="form_field"><input type="file"  multiple name="image"></div>
+    <button>Создать</button>
+{% else %} <p align="center">У вас нет доступа</p>{% endif %}
+</form>
+{% endblock %}

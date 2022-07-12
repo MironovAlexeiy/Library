@@ -1,0 +1,245 @@
+.sidebar-nav {
+    margin-top: 20px;
+    padding: 10px;
+    list-style: none;
+}
+.body_cls {
+    background-image: url(../img/fon.jpg);
+}
+
+
+h1{
+    color: blue;
+    text-align: center;
+}
+.header_link{
+    color: #f5e536;
+    text-decoration: none;
+}
+.header{
+    display: flex;
+    justify-content: space-between;
+    padding: 10px;
+    background: #52100c;
+    color: green;
+}
+.header_section{
+    display: flex;
+    align-items: center;
+}
+.header-item{
+    padding: 10px 10px;
+    font-size: 15px;
+    margin-left: 5px;
+}
+.header-item:hover{
+    background-color: coral;
+    border-radius: 2px;
+}
+
+.div_login{
+    margin-top: 50px;
+    text-align: center;
+
+}
+
+.form_login{
+    display: inline-block;
+    padding: 25px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    width: 500px;
+}
+
+.form_field_login{
+    margin-bottom: 10px;
+}
+
+.form_login input {
+  outline: none;
+  display: block;
+  width: 100%;
+  border-radius: 2px;
+  border: 1px solid #ccc;
+  padding: 10px;
+  box-sizing: border-box;
+}
+
+input:valid:not(:placeholder-shown) {
+  border-color: green;
+}
+
+input:invalid:not(:placeholder-shown) {
+  border-color: red;
+}
+
+.log_out{
+    text-align: center;
+    margin-top: 20px;
+}
+
+.menu_nav{display: block;
+    max-width: 90px;
+    margin-bottom: 0;
+    margin-top: 10px;
+    margin-left: 10px;
+
+}
+.navega_sunka{
+  position: fixed;
+  width: 254px;
+  left: -254px;
+  height: 100%;
+  background: #1e1e1e;
+  transition: all .5s ease;
+}
+.navega_sunka header{
+  font-size: 28px;
+  color: white;
+  line-height: 70px;
+  text-align: center;
+  background: #1b1b1b;
+  user-select: none;
+  font-family: 'Montserrat', sans-serif;
+}
+.navega_sunka a{
+  display: block;
+  height: 65px;
+  width: 100%;
+  color: white;
+  line-height: 65px;
+  padding-left: 30px;
+  box-sizing: border-box;
+  border-bottom: 1px solid black;
+  border-top: 1px solid rgba(255,255,255,.1);
+  border-left: 5px solid transparent;
+  font-family: 'Open Sans', sans-serif;
+  transition: all .5s ease;
+}
+a.gesopamda,a:hover{
+  border-left: 5px solid #b93632;
+  color: #b93632;
+}
+.navega_sunka a i{
+  font-size: 23px;
+  margin-right: 16px;
+}
+.navega_sunka a span{
+  letter-spacing: 1px;
+  text-transform: uppercase;
+}
+#check{
+  display: none;
+}
+label #amdaven,label #lodesan{
+  position: absolute;
+  cursor: pointer;
+  color: white;
+  border-radius: 5px;
+  border: 1px solid #262626;
+  margin: 15px 30px;
+  font-size: 29px;
+  background: #262626;
+  height: 45px;
+  width: 45px;
+  text-align: center;
+  line-height: 45px;
+  transition: all .5s ease;
+}
+label #lodesan{
+  opacity: 0;
+  visibility: hidden;
+}
+#check:checked ~ .navega_sunka{
+  left: 0;
+}
+#check:checked ~ label #amdaven{
+  margin-left: 245px;
+  opacity: 0;
+  visibility: hidden;
+}
+#check:checked ~ label #lodesan{
+  margin-left: 245px;
+  opacity: 1;
+  visibility: visible;
+}
+@media(max-width : 860px){
+  .navega_sunka{
+  height: auto;
+  width: 70px;
+  left: 0;
+  margin: 100px 0;
+  }
+  header,#amdaven,#lodesan{
+  display: none;
+  }
+  span{
+  position: absolute;
+  margin-left: 23px;
+  opacity: 0;
+  visibility: hidden;
+  }
+  .navega_sunka a{
+  height: 60px;
+  }
+  .navega_sunka a i{
+  margin-left: -10px;
+  }
+  a:hover {
+  width: 200px;
+  background: inherit;
+  }
+  .navega_sunka a:hover span{
+  opacity: 1;
+  visibility: visible;
+  }
+}
+.naveg{
+    display: flex;
+    justify-content: stretch;
+    align-items: stretch;
+    max-height: 80%;
+    margin-bottom: 0;
+    width: 20%;
+
+}
+.list_book{
+    width: 80%;
+    display: flex;
+    flex-flow: row wrap;
+    align-content: center;
+    margin-top: 5px;
+    margin-left: 300px;
+    align-items: baseline;
+}
+.list_book>div{
+    display: flex;
+
+    padding: 10px;
+    align-items: flex-start;
+    max-width: 100%;
+    height: 80%;
+}
+
+.book_detail{
+    margin-left: 30%;
+    margin-bottom: 5%;
+}
+.book_detail>p{
+    width: 80%;
+}
+.hello_user{display: block;
+    align-items: stretch;
+    margin-top: 0;
+    color: rgba(41,144,72,0.73);
+
+}
+.borrower_book{
+    width: 60%;
+    display: flex;
+    flex-flow: row wrap;
+    align-content: center;
+    margin-top: 5px;
+    margin-left: 450px;
+    align-items: baseline;
+}

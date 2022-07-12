@@ -1,0 +1,19 @@
+.register{
+    background-color: #f5e536;
+    display: inline-block;
+    padding: 25px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    width: 1000px;
+    margin-left: 420px;
+}
+
+p>input {
+  outline: none;
+  display: block;
+  width: 100%;
+  border-radius: 2px;
+  border: 1px solid #ccc;
+  padding: 10px;
+  box-sizing: border-box;
+}

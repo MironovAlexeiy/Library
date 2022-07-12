@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    {% load static%}
+    <link rel="stylesheet" href="{% static 'css/register.css' %}">
+</head>
+<body>
+<h1 align="center">Отредактируйте Ваш акаунт или перейдите на <a href="{% url 'main:list_book' %}">главную</a></h1>
+<div class="register">
+    <form action="" method="post">
+        {% csrf_token %}
+        <div>{{ user_form.as_p }}</div>
+        <div>{{ customers_form.as_p }}</div>
+        <p><input type="submit" value="Save changes"></p>
+    </form>
+</div>
+</body>
+</html>

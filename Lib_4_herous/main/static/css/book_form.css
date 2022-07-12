@@ -1,0 +1,61 @@
+/*body {*/
+/*  margin-top: 100px;*/
+/*  text-align: center;*/
+/*  padding: 10px;*/
+/*}*/
+
+.form {
+  margin-left: 35%;
+  text-align: center;
+  display: inline-block;
+  padding: 25px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  width: 550px;
+}
+
+.form_field {
+  margin-bottom: 10px;
+}
+
+.form_error {
+  color: red;
+  text-align: left;
+  font-size: 12px;
+  margin-top: 3px;
+  }
+
+.form input, textarea {
+  outline: none;
+  display: block;
+  width: 100%;
+  border-radius: 2px;
+  border: 1px solid #ccc;
+  padding: 10px;
+  box-sizing: border-box;
+}
+.form label{
+  padding-left: 10px;
+}
+.form label>input {
+  display: inline;
+  width: auto;
+}
+
+.form button {
+  width: 100%;
+  padding: 10px;
+  border-radius: 2px;
+  border: 0;
+  background-color: blue;
+  color: #fff;
+}
+
+input:valid:not(:placeholder-shown) {
+  border-color: green;
+}
+
+input:invalid:not(:placeholder-shown) {
+  border-color: red;
+}
+

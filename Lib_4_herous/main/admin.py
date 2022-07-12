@@ -21,9 +21,9 @@ class BookInstanceInlane(admin.TabularInline):
 class BooksAdmin(admin.ModelAdmin):
     list_display = ['title_russian', 'display_author', 'display_genre']
     list_display_links = ['title_russian']
-    search_fields = ['title_rus', 'genre', 'authors']
+    search_fields = ['title_russian']
     ordering = ['title_russian']
-    inlines = [BooksImageInline]
+    inlines = [BooksImageInline, BookInstanceInlane]
 
 @admin.register(Author)
 class AuthorAdmin(admin.ModelAdmin):
@@ -33,14 +33,14 @@ class AuthorAdmin(admin.ModelAdmin):
 
 @admin.register(BookInstance)
 class BookInstanceAdmin(admin.ModelAdmin):
-    list_display = ['book', 'status', 'due_back']
+    list_display = ['book', 'status', 'due_back', 'id', 'borrower', 'day_borrower']
     list_filter = ['due_back', 'status']
     fieldsets = [
         ('', {
             'fields': ['book', 'id']
         }),
         ('Наличие', {
-            'fields': ('status', 'due_back')
+            'fields': ('status', 'due_back', 'borrower', 'day_borrower')
         })
     ]
 
@@ -51,8 +51,8 @@ class GenreAdmin(admin.ModelAdmin):
 
 @admin.register(Customers)
 class CustomersAdmin(admin.ModelAdmin):
-    list_display = ['name', 'surname', 'date_of_birthday', 'sex', 'place']
-    ordering = ['name', 'surname']
+    list_display = ['user', 'date_of_birthday', 'sex', 'place']
+
 
 
 

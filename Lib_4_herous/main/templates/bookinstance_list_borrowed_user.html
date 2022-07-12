@@ -1,0 +1,32 @@
+{% extends "main.html" %}
+{% block title%}Мои книги{% endblock %}
+{% block content %}
+    <h1>{{user.first_name.title}}, ваши книги</h1>
+
+    {% if bookinstance_list %}
+    <div class="borrower_book">
+    <table class="table">
+        <thead>
+    <tr>
+        <td scope="cool">Название книги</td>
+        <td scope="cool">Дата возврата</td>
+        <td scope="cool">Продление аренды</td>
+    </tr></thead>
+        <tbody>
+      {% for bookinst in bookinstance_list %}
+      <tr>
+          <td><a href="{% url 'main:book_detail' bookinst.book.pk %}">{{bookinst.book.title_russian}}</a></td>
+      <td class="{% if bookinst.is_overdue %}text-danger{% endif %}">
+        {{ bookinst.due_back }}
+      </td>
+          </tr>
+      {% endfor %}
+        </tbody>
+    </table>
+
+    {% else %}
+      <p align="center">Вы еще не взяли не одной книги.</p>
+        </div>
+    {% endif %}
+
+{% endblock %}

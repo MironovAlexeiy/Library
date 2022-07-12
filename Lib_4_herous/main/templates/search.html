@@ -1,0 +1,45 @@
+{% extends 'main.html' %}
+{% block title %} Поиск {% endblock %}
+{% block content %}
+<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css" integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk" crossorigin="anonymous">
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+
+
+<div class="container">
+<div class="col-md-8 offset-md-2">
+{% if query %}
+
+<h2>
+
+{% with results.count as total_results %}
+
+Найден {{ total_results }} результат
+
+{% endwith %}
+
+</h2>
+
+{% for book in results %}
+
+<a href="{{book.get_absolute_url}}"><h3>Книга: {{ book.title_russian }}</h3></a>
+
+<h3>автор(ы): {% for a in book.author.all %} {{a}} {% endfor %}</h3>
+<h3>Цена: {{ book.price }} каких-то денег</h3>
+<h3>Стоимость аренды (за сутки): {{ book.cost_daily }}  денег</h3>
+
+{% empty %}
+
+<h3>Поиск не дал результата</h3>
+
+{% endfor %}
+
+{% endif %}
+
+<form action="{% url 'main:list_book' %}" class="form-inline" method="get">
+
+<button type="submit" class="btn btn-primary btn-lg mb-2">Назад</button>
+
+</form>
+</div>
+</div>
+{% endblock %}

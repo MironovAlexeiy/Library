@@ -1,0 +1,6 @@
+{% extends "main.html" %}
+{% block title %}Logged out{% endblock %}
+{% block content %}
+    <h1 align="center">До новых встреч</h1>
+    <p align="center">Вы успешно вышли, но можете вернуться <a href="{% url "login" %}" ">войти</a>.</p>
+{% endblock %}

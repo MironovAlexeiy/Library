@@ -1,0 +1,39 @@
+{% extends "main.html" %}
+{% block title%}Все клиенты{% endblock %}
+{% block content %}
+    <h1>Список клиентов библиотеки</h1>
+
+    <div class="borrower_book">
+    <table class="table">
+        <thead>
+    <tr>
+        <td scope="cool">Фамилия</td>
+        <td scope="cool">Имя</td>
+        <td scope="cool">Книга</td>
+        <td scope="cool">Дата возврата</td>
+        <td scope="cool">Предварительная стоимость</td>
+
+    </tr></thead>
+        <tbody>
+      {% for c in clients %}
+      <tr>
+          <td>{{ c.borrower.last_name }}</td>
+          <td>{{ c.borrower.first_name }}</td>
+          <td>{{ c }}</td>
+          <td>{{ c.due_back }}</td>
+          <td>{{ c.get_price }} денег</td>
+
+      </tr>
+      {% endfor %}
+        </tbody>
+        <tfoot>
+        <tr><td>Итого:</td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td>{{ total_sum }}</td>
+        </tr></tfoot>
+    </table>
+    </div>
+
+{% endblock %}

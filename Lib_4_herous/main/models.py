@@ -1,8 +1,9 @@
 import uuid
-
+from django.contrib.auth.models import User
 from django.db import models
 from django.urls import reverse
-
+from django.conf import settings
+from datetime import datetime, date
 
 class Books(models.Model):
     title_russian = models.CharField(max_length=150, help_text='Введите название на русском языке', verbose_name='Название книги')
@@ -25,7 +26,7 @@ class Books(models.Model):
         return self.title_russian
 
     def get_absolute_url(self):
-        return reverse('books-detail', args=[str(self.id)])
+        return reverse('main:book_detail', args=[str(self.id)])
 
     def display_genre(self):
         return [genre.name for genre in self.genre.all()]
@@ -49,41 +50,34 @@ class Author(models.Model):
         return f'{self.name} {self.surname}'
 
     def get_absolute_url(self):
-        return reverse('author-detail', args=[str(self.id)])
+        return reverse('main:author_detail', args=[str(self.id)])
 
     class Meta:
-        ordering = ['name',"surname"]
         verbose_name_plural = 'Авторы'
         verbose_name = 'Автор'
-
+        ordering = ['name', "surname"]
 
 class Customers(models.Model):
-    name = models.CharField(max_length=30, verbose_name='Имя')
-    surname = models.CharField(max_length=30, verbose_name='Фамилия')
+    user = models.OneToOneField(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
     second_name = models.CharField(max_length=30, null=True, blank=True, verbose_name='Отчество')
-    email = models.EmailField(unique=True)
     date_of_birthday = models.DateField(null=True, blank=True, verbose_name='Дата рождения')
-    ages = models.IntegerField(verbose_name='Возраст')
+    ages = models.IntegerField(verbose_name='Возраст', default=16)
 
     option = (
-        ('Male', 'Man'),
-        ('Female', 'Woman'),
+        ('Male', 'Мужчина'),
+        ('Female', 'Женщина'),
     )
     sex = models.CharField(max_length=7, choices=option, default='Male', verbose_name='Пол')
-    number_of_passport = models.CharField(max_length=9, unique=True, verbose_name='Номер паспорта')
-    place = models.CharField(max_length=30,verbose_name='Город проживания')
-
-    def __str__(self):
-        return f'{self.name} {self.surname}'
+    number_of_passport = models.CharField(max_length=9, unique=True, verbose_name='Номер паспорта', null=True)
+    place = models.CharField(max_length=30,verbose_name='Город проживания', null=True)
 
     class Meta:
-        verbose_name = 'Пользователь'
-        verbose_name_plural = 'Пользователи'
-        ordering = ['name', 'surname']
+        verbose_name = 'Читатель'
+        verbose_name_plural = 'Читатели'
+        ordering = ['user']
 
-
-
-
+    def __str__(self):
+        return self.user.username
 
 class Genre(models.Model):
     name = models.CharField(max_length=50, help_text='Введите', unique=True, verbose_name='Название жанра')
@@ -127,12 +121,13 @@ class ImageBook(models.Model):
 class BookInstance(models.Model):
     id = models.UUIDField(primary_key=True, default=uuid.uuid4())
     book = models.ForeignKey(Books, on_delete=models.SET_NULL, null=True, verbose_name='Книга')
-    imprint = models.CharField(max_length=200)
+    imprint = models.CharField(max_length=200, default='yes')
     due_back = models.DateField(null=True, blank=True, verbose_name='Дата возврата')
-
+    borrower = models.ForeignKey(User, on_delete=models.SET_NULL, null=True, blank=True)
+    day_borrower = models.DateField(verbose_name='Дата выдачи в пользование', null=True, blank=True)
     LOAN_STATUS = [
         ('m', 'На обслуживании'),
-        ('o', 'Нет в наличии'),
+        ('o', 'В аренде'),
         ('a', 'В наличии'),
         ('r', 'Зарезервирована'),
     ]
@@ -140,8 +135,30 @@ class BookInstance(models.Model):
 
     class Meta:
         verbose_name = 'Копия'
-        verbose_name_plural = 'Экземпляры книг'
+        verbose_name_plural = 'Копии книг'
         ordering = ['book', "due_back"]
+        permissions = [
+            ('can_mark_returned', 'Set book as returned'),
+        ]
 
     def __str__(self):
         return self.book.title_russian
+
+    @property
+    def get_price(self):
+        date_today = self.day_borrower
+        day_back = self.due_back
+        day_on_loan = (day_back - date_today).days
+        price = day_on_loan * self.book.cost_daily
+        return price
+
+    @property
+    def bad_book(self):
+        return True
+
+
+    @property
+    def is_overdue(self):
+        if self.due_back and date.today() > self.due_back:
+            return True
+        return False

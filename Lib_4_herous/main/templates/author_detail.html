@@ -1,0 +1,21 @@
+{% extends 'main.html' %}
+{% block title %}{{ author.name }} {{ author.surname }}{% endblock %}
+{% block content %}
+<div class="book_detail">
+<h2>Автор: {{ author.name }} {{ author.surname}} </h2>{% if user.is_staff %}<a href="{% url 'main:author_delete' author.pk %}">Удалить автора</a>{% endif %}
+    <p>
+        {% for img in author.imageauthor_set.all %}
+        <img src="{{ img.image.url }}" alt="" width="150" height="250">
+    {% endfor %}
+    </p>
+    <p><strong>Книги:</strong>
+    {% for book in author.books_set.all %}
+        <p><a href="{% url 'main:book_detail' book.pk %}">{{ book }} </a></p>
+    <p>{{ book.description}}</p>
+        {% endfor %}
+    </p>
+
+
+
+</div>
+{% endblock %}

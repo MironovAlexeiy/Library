@@ -1,0 +1,31 @@
+{% extends "main.html" %}
+{% block title%}Все читатели{% endblock %}
+{% block content %}
+    <h1>Список пользователей библиотеки</h1>
+
+    <div class="borrower_book">
+    <table class="table">
+        <thead>
+    <tr>
+        <td scope="cool">Фамилия</td>
+        <td scope="cool">Имя</td>
+        <td scope="cool">Дата рождения</td>
+        <td scope="cool">Адрес</td>
+        <td scope="cool">Email</td>
+    </tr></thead>
+        <tbody>
+      {% for u in customers %}
+      <tr>
+          <td>{{ u.user.last_name|default:"еще не заполнено" }}</td>
+          <td>{{ u.user.first_name|default:"еще не заполнено" }}</td>
+          <td>{{ u.date_of_birthday|default:"еще не заполнено" }}</td>
+          <td>{{ u.place|default:"еще не заполнено" }}</td>
+          <td>{{ u.user.email|default:"еще не заполнено" }}</td>
+          <td></td>
+      </tr>
+      {% endfor %}
+        </tbody>
+    </table>
+    </div>
+
+{% endblock %}

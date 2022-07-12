@@ -1,0 +1,39 @@
+{% extends 'main.html' %}
+{% block title %}{{ books.title_russian }} {% endblock %}
+{% block content %}
+<div class="book_detail">
+<h2>Книга: {{ books.title_russian }}</h2>
+    <p>
+        {% for img in books.imagebook_set.all %}
+        <img src="{{ img.image.url }}" alt="" width="150" height="250">
+    {% endfor %}
+    </p>
+    <p><strong>Авторы:</strong>
+    {% for author in books.author.all %}
+        <a href="{% url 'main:author_detail' author.pk %}">{{ author }} </a>
+        {% endfor %}
+    </p>
+    <p>{{ books.description }}</p>
+    <p>
+        <strong>Жанр:</strong>
+        {% for genre in books.genre.all %}
+        {{ genre|default:"-" }}
+        {% endfor %}
+    </p>
+    <div style="margin-top: 10px">
+    <h4>Копии:</h4>
+    {% for copy in books.bookinstance_set.all %}
+        <p class="{% if copy.status == 'a' %}text-success{% elif copy.status == 'n' %}text-danger{% else %}text-warning{% endif %}">{{ copy.get_status_display }}</p>
+        {% if copy.status != 'a' %}
+        <p>
+        <strong>Дата возврата: {{ copy.due_back }}</strong>
+         <p class="text-muted">
+        {% endif %}
+        <strong><a href="">Id: {{ copy.id }}</a></strong>
+
+        </p>
+        {% endfor %}
+</div>
+</div>
+
+{% endblock %}
