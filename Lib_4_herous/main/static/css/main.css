@@ -212,6 +212,9 @@ label #lodesan{
     margin-left: 300px;
     align-items: baseline;
 }
+
+
+
 .list_book>div{
     display: flex;
 
@@ -219,6 +222,24 @@ label #lodesan{
     align-items: flex-start;
     max-width: 100%;
     height: 80%;
+}
+th.sorted[data-order="1"],
+th.sorted[data-order="-1"] {
+    position: relative;
+}
+
+th.sorted[data-order="1"]::after,
+th.sorted[data-order="-1"]::after {
+    right: 8px;
+    position: absolute;
+}
+
+th.sorted[data-order="-1"]::after {
+	content: "▼"
+}
+
+th.sorted[data-order="1"]::after {
+	content: "▲"
 }
 
 .book_detail{
